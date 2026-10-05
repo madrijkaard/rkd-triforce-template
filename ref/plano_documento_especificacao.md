@@ -1,4 +1,4 @@
-# elaboracao_documento_especificacao
+# plano_documento_especificacao
 
 Use quando o usuário descreve um problema a resolver e pede (ou o fluxo exige) gerar um documento de especificação na pasta spec, no formato spec_título_000N.
 
