@@ -1,12 +1,16 @@
 # commit_push_alteracoes
 
-Use quando for commitar o que ainda não foi commitado, agrupando por contexto, e em seguida fazer push.
+Use quando for commitar e dar push no repositório que tem o próprio .git dentro de src do rkd-triade-template.
 
-## O que observar
+## Qual repositório
 
-Todos os arquivos que ainda não foram commitados no repositório atual.
+No projeto `rkd-triade-template` existe o diretório `src`. Dentro de `src` há um `.git` próprio: é outro repositório, diferente de `rkd-triade-template`.
+
+Quando esta skill for acionada, o alvo é somente o repositório cujo `.git` fica dentro de `src`. Entre nesse diretório e rode os comandos Git ali. Não commite nem faça push de `rkd-triade-template`.
 
 ## Como organizar
+
+Olhe todos os arquivos que ainda não foram commitados nesse repositório de `src`.
 
 Analise o contexto de cada alteração e agrupe arquivos que pertencem ao mesmo assunto. Um grupo vira um commit. Não misture assuntos diferentes no mesmo commit.
 
@@ -21,10 +25,11 @@ Use exatamente um destes prefixos na mensagem, seguido de uma frase curta do que
 
 ## Passos
 
-1. Veja o status e o diff dos arquivos não commitados.
-2. Separe em grupos por contexto e escolha o prefixo de cada grupo.
-3. Faça um commit por grupo, só com os arquivos daquele grupo, mensagem `prefixo: descrição curta`.
-4. Se não houver alteração, não crie commit vazio e não faça push.
-5. Com os commits feitos, execute o push da branch atual para o remote.
+1. Entre em `src` e confirme que o `.git` dali é o repositório em uso.
+2. Veja o status e o diff dos arquivos não commitados.
+3. Separe em grupos por contexto e escolha o prefixo de cada grupo.
+4. Faça um commit por grupo, só com os arquivos daquele grupo, mensagem `prefixo: descrição curta`.
+5. Se não houver alteração, não crie commit vazio e não faça push.
+6. Com os commits feitos, execute o push da branch atual desse repositório para o remote dele.
 
 Não altere o histórico já publicado. Não use force push.
