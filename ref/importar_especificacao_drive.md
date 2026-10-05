@@ -1,6 +1,6 @@
 # importar_especificacao_drive
 
-Use quando for importar do Google Drive uma pasta de especificação (spec_NOME_DO_PROJETO_data_…) para o diretório spec local do rkd-triade-template.
+Use quando for importar do Google Drive uma pasta de especificação (rkd-triade-template/NOME_DO_PROJETO/spec_…) para o diretório spec local do rkd-triade-template.
 
 No `rkd-triade-template`, a pasta local `spec` recebe os documentos de especificação que vão orientar o trabalho no código em `src`. Esta skill **baixa** do Google Drive o conteúdo de uma pasta de exportação criada pela skill `exportar_especificacao_drive` e coloca esse conteúdo em `rkd-triade-template/spec`.
 
@@ -9,51 +9,51 @@ No `rkd-triade-template`, a pasta local `spec` recebe os documentos de especific
 - Conector Google Drive conectado e utilizável.
 - Pasta local do template em `/workspace/rkd-triade-template` (ou o caminho equivalente do workspace).
 
-## Pasta pai no Drive
+## Hierarquia no Drive
 
-Todas as exportações ficam **dentro** de uma pasta chamada exatamente:
+As exportações ficam em:
 
 ```text
-rkd-triade-template
+rkd-triade-template/NOME_DO_PROJETO/spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm
 ```
 
-1. Busque essa pasta no Meu Drive pelo nome.
+## Pasta raiz `rkd-triade-template`
+
+1. Busque essa pasta no Meu Drive pelo nome exato `rkd-triade-template`.
 2. Se **não existir**, pare e diga ao usuário que atualmente **não existe nenhum documento de especificação para ser importado** (nunca houve exportação via `exportar_especificacao_drive`). Não pergunte nome de projeto nesse caso.
-3. Se existir, use o `folderId` dela para listar as pastas filhas.
+3. Se existir, use o `folderId` dela para listar as pastas filhas (cada filha deve ser um `NOME_DO_PROJETO`).
 
 ## Passo 1 — Distinct de `NOME_DO_PROJETO`
 
-Liste as pastas filhas de `rkd-triade-template` cujo nome segue o padrão:
+Liste as **pastas filhas diretas** de `rkd-triade-template`. Cada pasta cujo nome **não** começa com `spec_` é tratada como um `NOME_DO_PROJETO` candidato.
+
+Para confirmar que há algo importável, em cada pasta de projeto verifique se existe ao menos uma filha no padrão atual:
 
 ```text
-spec_NOME_DO_PROJETO_data_yyyy_mm_dd_hh:mm
+spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm
 ```
 
-Regras de parse:
+Compatibilidade: também aceite pastas antigas `spec_NOME_DO_PROJETO_data_yyyy_mm_dd_hh:mm` e pastas `spec_…` que ainda estejam **diretamente** sob `rkd-triade-template`; parse o `NOME_DO_PROJETO` delas e inclua no distinct.
 
-- Prefixo obrigatório: `spec_`
-- Sufixo obrigatório: `_data_` + `yyyy_mm_dd_hh:mm` (hora e minuto com dois dígitos; o `:` entre hora e minuto faz parte do padrão)
-- O trecho entre `spec_` e `_data_` é o `NOME_DO_PROJETO`
-- Ignore pastas que não casarem com esse padrão
+Faça um **distinct** dos `NOME_DO_PROJETO` encontrados.
 
-Faça um **distinct** dos `NOME_DO_PROJETO` encontrados (cada nome aparece uma vez na lista, mesmo que haja várias datas).
+Se não houver nenhum projeto com pasta de exportação válida, diga que atualmente **não existe nenhum documento de especificação para ser importado** e pare.
 
-Se não houver nenhuma pasta válida (ou a pasta pai estiver vazia), diga que atualmente **não existe nenhum documento de especificação para ser importado** e pare.
-
-Caso contrário, **liste os nomes distintos** e **pergunte no chat** qual `NOME_DO_PROJETO` o usuário quer importar. Use um widget com uma opção por nome quando couber; se forem muitos, liste em texto e peça a confirmação. **Não invente nomes** e **não prossiga** até o usuário confirmar um dos nomes listados.
+Caso contrário, **liste os nomes distintos** e **pergunte no chat** qual `NOME_DO_PROJETO` o usuário quer importar. Use um widget com uma opção por nome quando couber. **Não invente nomes** e **não prossiga** até o usuário confirmar um dos nomes listados.
 
 ## Passo 2 — Listar versões daquele projeto
 
 Com o `NOME_DO_PROJETO` confirmado:
 
-1. Filtre as pastas filhas cujo nome começa com `spec_<NOME_DO_PROJETO>_data_`.
-2. Se **não houver nenhuma** para esse nome (por exemplo o usuário digitou um nome que não estava na lista), diga que atualmente **não existe nenhum documento de especificação para ser importado no projeto NOME_DO_PROJETO** e pare.
-3. Liste **todas** as pastas `spec_NOME_DO_PROJETO_data_yyyy_mm_dd_hh:mm` disponíveis para esse projeto (de preferência da mais recente para a mais antiga, se a data/hora no nome permitir ordenar).
-4. Pergunte qual pasta exata importar. Espere a confirmação do usuário. Não baixe nada até ele confirmar o nome completo da pasta.
+1. Abra a pasta `rkd-triade-template/NOME_DO_PROJETO` (nome exatamente igual).
+2. Se essa pasta de projeto **não existir**, diga que atualmente **não existe nenhum documento de especificação para ser importado no projeto NOME_DO_PROJETO** e pare.
+3. Liste **todas** as pastas filhas `spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm` (e, se houver, as antigas `spec_NOME_DO_PROJETO_data_yyyy_mm_dd_hh:mm`), de preferência da mais recente para a mais antiga.
+4. Se não houver nenhuma, diga que atualmente **não existe nenhum documento de especificação para ser importado no projeto NOME_DO_PROJETO** e pare.
+5. Pergunte qual pasta exata importar. Espere a confirmação. Não baixe nada até ele confirmar o nome completo da pasta.
 
 ## Passo 3 — Importar para `spec` local
 
-Com a pasta `spec_NOME_DO_PROJETO_data_yyyy_mm_dd_hh:mm` confirmada:
+Com a pasta de exportação confirmada:
 
 1. Garanta que a pasta local `rkd-triade-template/spec` exista; se não existir, crie-a.
 2. **Substitua o conteúdo** de `spec` pelo conteúdo interno da pasta escolhida no Drive:
@@ -68,7 +68,7 @@ Com a pasta `spec_NOME_DO_PROJETO_data_yyyy_mm_dd_hh:mm` confirmada:
 Informe:
 
 - o `NOME_DO_PROJETO` escolhido
-- a pasta do Drive importada: `rkd-triade-template/<nome completo da pasta>`
+- a pasta do Drive importada: `rkd-triade-template/NOME_DO_PROJETO/<nome completo da pasta>`
 - quantos arquivos foram trazidos para `spec`
 - que a pasta local `spec` está pronta para o trabalho com o código em `src`
 
