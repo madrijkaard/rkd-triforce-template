@@ -1,15 +1,19 @@
 # preparar_readme
 
-Use quando for criar ou atualizar o README.md na raiz de src do projeto rkd-triade-template.
+Use quando for criar ou atualizar o README.md do repositório que tem o próprio .git dentro de src do rkd-triade-template.
 
-## O que observar
+## Qual repositório
 
-O arquivo `README.md` na raiz da pasta `src`.
+No projeto `rkd-triade-template` existe o diretório `src`. Dentro de `src` há um `.git` próprio: é outro repositório, diferente de `rkd-triade-template`.
 
-Quando esta skill for acionada:
+O `README.md` documenta esse repositório de dentro de `src`, não o template. O arquivo fica na raiz desse repositório, ou seja, em `src/README.md`.
 
-- se `src/README.md` não existir, crie-o;
-- se existir, reescreva mantendo esta mesma estrutura, atualizando o conteúdo com o que o código realmente faz hoje.
+## Quando acionar
+
+Entre em `src` e verifique se `README.md` existe ali.
+
+- Se não existir, crie `src/README.md`.
+- Se existir, reescreva mantendo esta mesma estrutura, atualizando o conteúdo com o que o código desse repositório realmente faz hoje.
 
 O README é em português, estilizado e bem formatado: ícone ao lado de cada título, títulos em fonte maior (heading markdown, `#` para o nome do projeto e `##` para as quatro seções). Não invente tecnologias, funcionalidades, comandos ou configurações. Se algo não estiver no código, escreva que ainda não foi definido.
 
