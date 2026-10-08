@@ -1,75 +1,109 @@
 # importar_especificacao_drive
 
-Use quando for importar do Google Drive uma pasta de especificação (rkd-triade-template/NOME_DO_PROJETO/spec_…) para o diretório spec local do rkd-triade-template.
+Use quando for importar do Google Drive a exportação mais recente de um projeto (rkd-triade-template/NOME_DO_PROJETO/spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm) para rkd-triade-template/spec no workspace local.
 
-No `rkd-triade-template`, a pasta local `spec` recebe os documentos de especificação que vão orientar o trabalho no código em `src`. Esta skill **baixa** do Google Drive o conteúdo de uma pasta de exportação criada pela skill `exportar_especificacao_drive` e coloca esse conteúdo em `rkd-triade-template/spec`.
+Traz do Google Drive o conteúdo da exportação **mais recente** de um projeto e coloca esse conteúdo em `rkd-triade-template/spec`, no workspace local (`/workspace/rkd-triade-template/spec`).
 
-## Pré-requisitos
+## Layout do template no workspace
 
-- Conector Google Drive conectado e utilizável.
-- Pasta local do template em `/workspace/rkd-triade-template` (ou o caminho equivalente do workspace).
+```text
+/workspace/rkd-triade-template/   (repositório Git do template)
+├── src/    (outro repositório Git, com .git próprio: o projeto de implementação)
+├── spec/   (NÃO é repositório Git: guarda os documentos de especificação)
+└── ref/    (NÃO é repositório Git: guarda as skills pedidas pelo usuário)
+```
 
-## Hierarquia no Drive
+- `rkd-triade-template` é um repositório Git.
+- `src` contém outro repositório Git, independente do template.
+- `spec` e `ref` são pastas comuns de documentos, sem `.git` próprio.
+- Esta skill só trabalha em `spec`.
 
-As exportações ficam em:
+O conteúdo de cada exportação no Drive são **documentos de especificação** (arquivos e, se houver, subpastas), não um repositório Git.
+
+## Estrutura no Google Drive
+
+```text
+rkd-triade-template/                              (pasta raiz, no Meu Drive)
+├── NOME_DO_PROJETO_A/                            (um projeto)
+│   ├── spec_NOME_DO_PROJETO_A_2026_10_01_09:15   (uma exportação)
+│   ├── spec_NOME_DO_PROJETO_A_2026_10_05_18:40
+│   └── spec_NOME_DO_PROJETO_A_2026_10_07_22:03   (mais recente)
+└── NOME_DO_PROJETO_B/
+    └── spec_NOME_DO_PROJETO_B_2026_09_30_14:00
+```
+
+- `rkd-triade-template` é a pasta raiz.
+- Cada pasta filha direta dela é um projeto, e o nome da pasta é o `NOME_DO_PROJETO`.
+- Dentro de cada projeto há uma ou mais exportações, cada uma numa pasta `spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm`: o termo `spec`, o nome do projeto e o ano, mês, dia, hora e minuto da exportação.
+
+Caminho de uma exportação válida:
 
 ```text
 rkd-triade-template/NOME_DO_PROJETO/spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm
 ```
 
-## Pasta raiz `rkd-triade-template`
+## Pré-requisitos
 
-1. Busque essa pasta no Meu Drive pelo nome exato `rkd-triade-template`.
-2. Se **não existir**, pare e diga ao usuário que atualmente **não existe nenhum documento de especificação para ser importado** (nunca houve exportação via `exportar_especificacao_drive`). Não pergunte nome de projeto nesse caso.
-3. Se existir, use o `folderId` dela para listar as pastas filhas (cada filha deve ser um `NOME_DO_PROJETO`).
+- Conector Google Drive conectado. Se não estiver autenticado, ofereça autenticar e só continue depois.
+- Repositório `rkd-triade-template` no workspace, com a pasta `spec` dentro dele.
 
-## Passo 1 — Distinct de `NOME_DO_PROJETO`
+## Passo 1 — Listar os projetos
 
-Liste as **pastas filhas diretas** de `rkd-triade-template`. Cada pasta cujo nome **não** começa com `spec_` é tratada como um `NOME_DO_PROJETO` candidato.
-
-Para confirmar que há algo importável, em cada pasta de projeto verifique se existe ao menos uma filha no padrão atual:
+1. Busque no Google Drive a pasta com o nome exato `rkd-triade-template`.
+2. Se ela não existir, diga que não existe nenhuma exportação para importar e pare.
+3. Liste as pastas filhas diretas dela. Cada uma é um `NOME_DO_PROJETO`. Ignore arquivos soltos.
+4. Se não houver nenhuma pasta de projeto, diga que não existe nenhum projeto para importar e pare.
+5. Mostre os projetos numerados, em ordem alfabética, exatamente neste formato:
 
 ```text
-spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm
+1 - NOME_DO_PROJETO
+2 - NOME_DO_PROJETO
+3 - NOME_DO_PROJETO
 ```
 
-Compatibilidade: também aceite pastas antigas `spec_NOME_DO_PROJETO_data_yyyy_mm_dd_hh:mm` e pastas `spec_…` que ainda estejam **diretamente** sob `rkd-triade-template`; parse o `NOME_DO_PROJETO` delas e inclua no distinct.
+6. Peça ao usuário para escolher um dos números. Não invente nomes e não continue até ele responder com um número válido da lista.
 
-Faça um **distinct** dos `NOME_DO_PROJETO` encontrados.
+## Passo 2 — Achar a exportação mais recente
 
-Se não houver nenhum projeto com pasta de exportação válida, diga que atualmente **não existe nenhum documento de especificação para ser importado** e pare.
+1. Entre na pasta do projeto escolhido.
+2. Considere só as pastas filhas cujo nome segue exatamente `spec_<NOME_DO_PROJETO>_yyyy_mm_dd_hh:mm`, com o mesmo nome de projeto da pasta.
+3. Extraia a data e hora do **próprio nome** de cada pasta (ignore datas de criação ou modificação do Drive) e escolha a mais recente.
+4. Se não houver nenhuma pasta válida, diga que não existe exportação para importar no projeto `NOME_DO_PROJETO` e pare.
+5. Informe qual pasta foi escolhida e siga sem pedir outra confirmação.
 
-Caso contrário, **liste os nomes distintos** e **pergunte no chat** qual `NOME_DO_PROJETO` o usuário quer importar. Use um widget com uma opção por nome quando couber. **Não invente nomes** e **não prossiga** até o usuário confirmar um dos nomes listados.
+## Passo 3 — Preparar `spec`
 
-## Passo 2 — Listar versões daquele projeto
+1. Garanta que `/workspace/rkd-triade-template/spec` exista.
+2. Se `spec` tiver qualquer coisa além de `spec/.gitkeep`:
+   - Liste para o usuário os arquivos e pastas que estão em `spec` hoje e avise que serão substituídos.
+   - Pergunte se pode substituir e só continue depois de um sim explícito. Se ele não confirmar, pare sem mexer em nada.
+   - Ao confirmar, apague todo o conteúdo de `spec`, inclusive ocultos, mantendo a pasta `spec` e o `spec/.gitkeep`.
+3. Se `spec` estiver vazio ou só com `spec/.gitkeep`, siga direto.
 
-Com o `NOME_DO_PROJETO` confirmado:
+## Passo 4 — Copiar o conteúdo
 
-1. Abra a pasta `rkd-triade-template/NOME_DO_PROJETO` (nome exatamente igual).
-2. Se essa pasta de projeto **não existir**, diga que atualmente **não existe nenhum documento de especificação para ser importado no projeto NOME_DO_PROJETO** e pare.
-3. Liste **todas** as pastas filhas `spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm` (e, se houver, as antigas `spec_NOME_DO_PROJETO_data_yyyy_mm_dd_hh:mm`), de preferência da mais recente para a mais antiga.
-4. Se não houver nenhuma, diga que atualmente **não existe nenhum documento de especificação para ser importado no projeto NOME_DO_PROJETO** e pare.
-5. Pergunte qual pasta exata importar. Espere a confirmação. Não baixe nada até ele confirmar o nome completo da pasta.
+1. Baixe **todo** o conteúdo de dentro da pasta de exportação escolhida, de forma recursiva: arquivos e pastas, ocultos ou não.
+2. Coloque esse conteúdo **direto na raiz de `spec`**, preservando nomes e estrutura relativa. Não crie uma pasta intermediária com o nome da exportação ou do projeto.
+   - Certo: `spec/spec_cadastro_..._0001.md`, ...
+   - Errado: `spec/spec_NOME_DO_PROJETO_.../...`, `spec/NOME_DO_PROJETO/...`
+3. Use as ferramentas do conector Google Drive para listar e baixar. Para muitos arquivos, baixe para uma pasta temporária e depois mova tudo, incluindo os ocultos, para `spec`. Não cole conteúdo de arquivos no chat.
+4. Mantenha o `spec/.gitkeep` (ele é versionado no template). Se ele não existir ao final, recrie-o vazio.
 
-## Passo 3 — Importar para `spec` local
+## Passo 5 — Conferir
 
-Com a pasta de exportação confirmada:
+Confirme que o número de arquivos em `spec` (sem contar o `.gitkeep`) bate com o da pasta no Drive e que nenhuma pasta intermediária foi criada.
 
-1. Garanta que a pasta local `rkd-triade-template/spec` exista; se não existir, crie-a.
-2. **Substitua o conteúdo** de `spec` pelo conteúdo interno da pasta escolhida no Drive:
-   - Remova o conteúdo atual de `spec` (arquivos e subpastas), **sem** apagar a própria pasta `spec`.
-   - Baixe **todos** os arquivos e subpastas de dentro da pasta de exportação no Drive e coloque-os em `spec`, preservando nomes e a estrutura relativa.
-3. Use as ferramentas do conector Google Drive (e o fluxo de download suportado pelo ambiente para arquivos grandes). Não cole bytes no chat.
-4. Não altere nem apague nada no Google Drive.
-5. Não faça commit nem push por causa desta importação.
+## Regras
+
+- Não altere, mova nem apague nada no Google Drive.
+- Não faça commit nem push no template nem no repositório de `src`.
+- Não mexa em `src`, `ref` nem na raiz do template.
 
 ## Depois
 
-Informe:
+Informe ao usuário:
 
-- o `NOME_DO_PROJETO` escolhido
-- a pasta do Drive importada: `rkd-triade-template/NOME_DO_PROJETO/<nome completo da pasta>`
-- quantos arquivos foram trazidos para `spec`
-- que a pasta local `spec` está pronta para o trabalho com o código em `src`
-
-Se o Drive não estiver autenticado, ofereça autenticar o conector e só continue após a autorização.
+- o `NOME_DO_PROJETO` escolhido;
+- a pasta importada: `rkd-triade-template/NOME_DO_PROJETO/<nome completo da pasta>`;
+- quantos arquivos foram trazidos para `spec` e quais são;
+- que a especificação está pronta para uso em `spec`.
