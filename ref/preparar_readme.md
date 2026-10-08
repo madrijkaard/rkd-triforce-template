@@ -1,8 +1,8 @@
 # preparar_readme
 
-Use quando for criar ou atualizar o README.md do repositório que tem o próprio .git dentro de src do rkd-triade-template, no padrão Sobre o projeto, Tecnologias, Funcionalidades mapeadas e Como executar.
+Use quando for criar ou atualizar o README.md do repositório que tem o próprio .git dentro de src do rkd-triforce-template, no padrão Sobre o projeto, Tecnologias, Funcionalidades mapeadas e Como executar.
 
-No projeto `rkd-triade-template` existe o diretório `src`. Dentro de `src` há um `.git` próprio: é outro repositório, diferente de `rkd-triade-template`.
+No projeto `rkd-triforce-template` existe o diretório `src`. Dentro de `src` há um `.git` próprio: é outro repositório, diferente de `rkd-triforce-template`.
 
 O `README.md` documenta esse repositório de dentro de `src`, não o template. O arquivo fica na raiz desse repositório, ou seja, em `src/README.md`.
 

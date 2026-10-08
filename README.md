@@ -2,7 +2,7 @@
   <img src="assets/logo.jpg" alt="Tríade: ref · spec · src" width="640">
 </p>
 
-# rkd-triade-template
+# rkd-triforce-template
 
 Template para uma esteira de desenvolvimento com IA orientada a especificação, organizada em três pastas:
 

@@ -1,12 +1,12 @@
 # adicionar_projeto_src
 
-Use quando for clonar um repositório do GitHub do usuário logado para dentro de src do rkd-triade-template, com o .git na raiz de src (sem pasta com o nome do projeto).
+Use quando for clonar um repositório do GitHub do usuário logado para dentro de src do rkd-triforce-template, com o .git na raiz de src (sem pasta com o nome do projeto).
 
-O `rkd-triade-template` é um repositório Git. A pasta `src` **não** faz parte do código do template: nela deve ficar **outro repositório**, com o próprio `.git`. Esse repositório aninhado é o projeto de implementação.
+O `rkd-triforce-template` é um repositório Git. A pasta `src` **não** faz parte do código do template: nela deve ficar **outro repositório**, com o próprio `.git`. Esse repositório aninhado é o projeto de implementação.
 
 ## Objetivo
 
-Clonar um repositório ao qual a conta GitHub logada tem acesso e colocar o conteúdo **direto** em `rkd-triade-template/src`.
+Clonar um repositório ao qual a conta GitHub logada tem acesso e colocar o conteúdo **direto** em `rkd-triforce-template/src`.
 
 ## Layout correto
 
@@ -29,7 +29,7 @@ Em `src` **não** deve existir essa pasta intermediária. Os arquivos do clone (
 Clone **para a raiz de `src`**, sem pasta com o nome do repositório. Preferências:
 
 ```bash
-git clone <url-do-repo> /caminho/para/rkd-triade-template/src
+git clone <url-do-repo> /caminho/para/rkd-triforce-template/src
 ```
 
 Se `src` ainda tiver só `.gitkeep`, remova o conteúdo de `src` (exceto se a skill de remoção exigir confirmação) ou use um clone em diretório temporário e mova **todo** o conteúdo (incluindo `.git` e arquivos ocultos) para `src`.

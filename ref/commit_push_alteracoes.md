@@ -1,10 +1,10 @@
 # commit_push_alteracoes
 
-Use quando for commitar e dar push no repositório que tem o próprio .git dentro de src do rkd-triade-template, agrupando por contexto com prefixo feat, fix, chore, refactor, test ou docs.
+Use quando for commitar e dar push no repositório que tem o próprio .git dentro de src do rkd-triforce-template, agrupando por contexto com prefixo feat, fix, chore, refactor, test ou docs.
 
-No projeto `rkd-triade-template` existe o diretório `src`. Dentro de `src` há um `.git` próprio: é outro repositório, diferente de `rkd-triade-template`.
+No projeto `rkd-triforce-template` existe o diretório `src`. Dentro de `src` há um `.git` próprio: é outro repositório, diferente de `rkd-triforce-template`.
 
-Quando esta skill for acionada, o alvo é somente o repositório cujo `.git` fica dentro de `src`. Entre nesse diretório e rode os comandos Git ali. Não commite nem faça push de `rkd-triade-template`.
+Quando esta skill for acionada, o alvo é somente o repositório cujo `.git` fica dentro de `src`. Entre nesse diretório e rode os comandos Git ali. Não commite nem faça push de `rkd-triforce-template`.
 
 ## Como organizar
 

@@ -1,19 +1,19 @@
 # importar_especificacao_drive
 
-Use quando for importar do Google Drive a exportação mais recente de um projeto (rkd-triade-template/NOME_DO_PROJETO/spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm) para rkd-triade-template/spec no workspace local.
+Use quando for importar do Google Drive a exportação mais recente de um projeto (rkd-triforce-template/NOME_DO_PROJETO/spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm) para rkd-triforce-template/spec no workspace local.
 
-Traz do Google Drive o conteúdo da exportação **mais recente** de um projeto e coloca esse conteúdo em `rkd-triade-template/spec`, no workspace local (`/workspace/rkd-triade-template/spec`).
+Traz do Google Drive o conteúdo da exportação **mais recente** de um projeto e coloca esse conteúdo em `rkd-triforce-template/spec`, no workspace local (`/workspace/rkd-triforce-template/spec`).
 
 ## Layout do template no workspace
 
 ```text
-/workspace/rkd-triade-template/   (repositório Git do template)
+/workspace/rkd-triforce-template/   (repositório Git do template)
 ├── src/    (outro repositório Git, com .git próprio: o projeto de implementação)
 ├── spec/   (NÃO é repositório Git: guarda os documentos de especificação)
 └── ref/    (NÃO é repositório Git: guarda as skills pedidas pelo usuário)
 ```
 
-- `rkd-triade-template` é um repositório Git.
+- `rkd-triforce-template` é um repositório Git.
 - `src` contém outro repositório Git, independente do template.
 - `spec` e `ref` são pastas comuns de documentos, sem `.git` próprio.
 - Esta skill só trabalha em `spec`.
@@ -23,7 +23,7 @@ O conteúdo de cada exportação no Drive são **documentos de especificação**
 ## Estrutura no Google Drive
 
 ```text
-rkd-triade-template/                              (pasta raiz, no Meu Drive)
+rkd-triforce-template/                              (pasta raiz, no Meu Drive)
 ├── NOME_DO_PROJETO_A/                            (um projeto)
 │   ├── spec_NOME_DO_PROJETO_A_2026_10_01_09:15   (uma exportação)
 │   ├── spec_NOME_DO_PROJETO_A_2026_10_05_18:40
@@ -32,24 +32,24 @@ rkd-triade-template/                              (pasta raiz, no Meu Drive)
     └── spec_NOME_DO_PROJETO_B_2026_09_30_14:00
 ```
 
-- `rkd-triade-template` é a pasta raiz.
+- `rkd-triforce-template` é a pasta raiz.
 - Cada pasta filha direta dela é um projeto, e o nome da pasta é o `NOME_DO_PROJETO`.
 - Dentro de cada projeto há uma ou mais exportações, cada uma numa pasta `spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm`: o termo `spec`, o nome do projeto e o ano, mês, dia, hora e minuto da exportação.
 
 Caminho de uma exportação válida:
 
 ```text
-rkd-triade-template/NOME_DO_PROJETO/spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm
+rkd-triforce-template/NOME_DO_PROJETO/spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm
 ```
 
 ## Pré-requisitos
 
 - Conector Google Drive conectado. Se não estiver autenticado, ofereça autenticar e só continue depois.
-- Repositório `rkd-triade-template` no workspace, com a pasta `spec` dentro dele.
+- Repositório `rkd-triforce-template` no workspace, com a pasta `spec` dentro dele.
 
 ## Passo 1 — Listar os projetos
 
-1. Busque no Google Drive a pasta com o nome exato `rkd-triade-template`.
+1. Busque no Google Drive a pasta com o nome exato `rkd-triforce-template`.
 2. Se ela não existir, diga que não existe nenhuma exportação para importar e pare.
 3. Liste as pastas filhas diretas dela. Cada uma é um `NOME_DO_PROJETO`. Ignore arquivos soltos.
 4. Se não houver nenhuma pasta de projeto, diga que não existe nenhum projeto para importar e pare.
@@ -73,7 +73,7 @@ rkd-triade-template/NOME_DO_PROJETO/spec_NOME_DO_PROJETO_yyyy_mm_dd_hh:mm
 
 ## Passo 3 — Preparar `spec`
 
-1. Garanta que `/workspace/rkd-triade-template/spec` exista.
+1. Garanta que `/workspace/rkd-triforce-template/spec` exista.
 2. Se `spec` tiver qualquer coisa além de `spec/.gitkeep`:
    - Liste para o usuário os arquivos e pastas que estão em `spec` hoje e avise que serão substituídos.
    - Pergunte se pode substituir e só continue depois de um sim explícito. Se ele não confirmar, pare sem mexer em nada.
@@ -104,6 +104,6 @@ Confirme que o número de arquivos em `spec` (sem contar o `.gitkeep`) bate com 
 Informe ao usuário:
 
 - o `NOME_DO_PROJETO` escolhido;
-- a pasta importada: `rkd-triade-template/NOME_DO_PROJETO/<nome completo da pasta>`;
+- a pasta importada: `rkd-triforce-template/NOME_DO_PROJETO/<nome completo da pasta>`;
 - quantos arquivos foram trazidos para `spec` e quais são;
 - que a especificação está pronta para uso em `spec`.

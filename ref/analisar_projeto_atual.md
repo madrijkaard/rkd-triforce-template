@@ -1,12 +1,12 @@
 # analisar_projeto_atual
 
-Use quando for analisar o projeto que está dentro de src do rkd-triade-template: linguagem, framework, bibliotecas, configurações e funcionalidades (completas ou incompletas).
+Use quando for analisar o projeto que está dentro de src do rkd-triforce-template: linguagem, framework, bibliotecas, configurações e funcionalidades (completas ou incompletas).
 
-No `rkd-triade-template`, a pasta `src` não é o código do template. Dentro de `src` existe **outro repositório**, com o próprio `.git`. Toda a análise é desse repositório aninhado, não do template.
+No `rkd-triforce-template`, a pasta `src` não é o código do template. Dentro de `src` existe **outro repositório**, com o próprio `.git`. Toda a análise é desse repositório aninhado, não do template.
 
 ## Escopo
 
-- Trabalhe só em `rkd-triade-template/src`.
+- Trabalhe só em `rkd-triforce-template/src`.
 - Não misture `spec`, `ref` nem a raiz do template com o projeto analisado.
 - Se `src` estiver vazio (só `.gitkeep`) ou não tiver `.git`, diga que não há projeto para analisar e pare.
 

@@ -1,8 +1,8 @@
 # remover_projeto_src
 
-Use quando for esvaziar src do rkd-triade-template. Antes de apagar, rode git status no repositório de src; se houver alterações não commitadas, avise e só continue após o usuário confirmar. Sempre mantém a pasta src e o src/.gitkeep.
+Use quando for esvaziar src do rkd-triforce-template. Antes de apagar, rode git status no repositório de src; se houver alterações não commitadas, avise e só continue após o usuário confirmar. Sempre mantém a pasta src e o src/.gitkeep.
 
-No projeto `rkd-triade-template`, limpe o conteúdo do diretório `src`, mantendo a pasta `src` e o arquivo `src/.gitkeep`.
+No projeto `rkd-triforce-template`, limpe o conteúdo do diretório `src`, mantendo a pasta `src` e o arquivo `src/.gitkeep`.
 
 ## Antes de apagar
 
@@ -14,7 +14,7 @@ No projeto `rkd-triade-template`, limpe o conteúdo do diretório `src`, mantend
 
 ## Remoção
 
-Apague todo o conteúdo de `src` do `rkd-triade-template` (arquivos, pastas e itens ocultos, incluindo `.git`, `.gitignore` e qualquer outro), **exceto `src/.gitkeep`**. Por exemplo: `find src -mindepth 1 ! -name .gitkeep -exec rm -rf {} +`.
+Apague todo o conteúdo de `src` do `rkd-triforce-template` (arquivos, pastas e itens ocultos, incluindo `.git`, `.gitignore` e qualquer outro), **exceto `src/.gitkeep`**. Por exemplo: `find src -mindepth 1 ! -name .gitkeep -exec rm -rf {} +`.
 
 - A pasta `src` **nunca** é apagada.
 - O arquivo `src/.gitkeep` **nunca** é apagado. Se ele não existir ao final, recrie-o vazio, porque é ele que mantém a pasta `src` no repositório do template.
