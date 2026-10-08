@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.jpg" alt="Tríade: ref · spec · src" width="640">
+  <img src="assets/triforce-logo.png" alt="Triforce: ref · spec · src" width="640">
 </p>
 
 # rkd-triforce-template
