@@ -1,8 +1,6 @@
 # preparar_readme
 
-Use quando for criar ou atualizar o README.md do repositório que tem o próprio .git dentro de src do rkd-triade-template.
-
-## Qual repositório
+Use quando for criar ou atualizar o README.md do repositório que tem o próprio .git dentro de src do rkd-triade-template, no padrão Sobre o projeto, Tecnologias, Funcionalidades mapeadas e Como executar.
 
 No projeto `rkd-triade-template` existe o diretório `src`. Dentro de `src` há um `.git` próprio: é outro repositório, diferente de `rkd-triade-template`.
 
@@ -10,12 +8,12 @@ O `README.md` documenta esse repositório de dentro de `src`, não o template. O
 
 ## Quando acionar
 
-Entre em `src` e verifique se `README.md` existe ali.
+Ao ser acionada, entre em `src` e verifique se `README.md` existe ali.
 
 - Se não existir, crie `src/README.md`.
 - Se existir, reescreva mantendo esta mesma estrutura, atualizando o conteúdo com o que o código desse repositório realmente faz hoje.
 
-O README é em português, estilizado e bem formatado: ícone ao lado de cada título, títulos em fonte maior (heading markdown, `#` para o nome do projeto e `##` para as quatro seções). Não invente tecnologias, funcionalidades, comandos ou configurações. Se algo não estiver no código, escreva que ainda não foi definido.
+O README é em português, estilizado e bem formatado: ícone ao lado de cada título, títulos em fonte maior (use heading markdown, `#` para o nome do projeto e `##` para as quatro seções). Não invente tecnologias, funcionalidades, comandos ou configurações. Se algo não estiver no código, escreva que ainda não foi definido.
 
 ## Estrutura obrigatória
 

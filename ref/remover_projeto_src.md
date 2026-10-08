@@ -2,6 +2,8 @@
 
 Use quando for esvaziar src do rkd-triade-template. Antes de apagar, rode git status no repositório de src; se houver alterações não commitadas, avise e só continue após o usuário confirmar. Sempre mantém a pasta src e o src/.gitkeep.
 
+No projeto `rkd-triade-template`, limpe o conteúdo do diretório `src`, mantendo a pasta `src` e o arquivo `src/.gitkeep`.
+
 ## Antes de apagar
 
 1. Entre em `src`.

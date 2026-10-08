@@ -1,8 +1,6 @@
 # commit_push_alteracoes
 
-Use quando for commitar e dar push no repositório que tem o próprio .git dentro de src do rkd-triade-template.
-
-## Qual repositório
+Use quando for commitar e dar push no repositório que tem o próprio .git dentro de src do rkd-triade-template, agrupando por contexto com prefixo feat, fix, chore, refactor, test ou docs.
 
 No projeto `rkd-triade-template` existe o diretório `src`. Dentro de `src` há um `.git` próprio: é outro repositório, diferente de `rkd-triade-template`.
 
